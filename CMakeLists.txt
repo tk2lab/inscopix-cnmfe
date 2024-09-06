@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 project(cnmfe)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "-Wall -fPIC")
+set(CMAKE_CXX_STANDARD 14)
+#set(CMAKE_CXX_FLAGS "-Wall -fPIC")
+set(CMAKE_CXX_FLAGS "-Wall")
 
 # cnmfe static library
 file(GLOB SRC_FILES
@@ -42,7 +43,9 @@ if (${BUILD_PYTHON_API})
 endif()
 
 # cnmfe unit tests
-add_subdirectory(test)
+if (${BUILD_TEST})
+    add_subdirectory(test)
+endif()
 
 # use pkg-config
 find_package(PkgConfig REQUIRED)
@@ -59,31 +62,19 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC mio::mio)
 find_package(nlohmann_json REQUIRED)
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC nlohmann_json::nlohmann_json)
 
+# mkl
+#set(BLA_VENDOR Intel10_64lp)
+find_package(BLAS REQUIRED)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC BLAS::BLAS)
+
 # opencv
 find_package(OpenCV 4.6.0 REQUIRED core imgproc video features2d)
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${OpenCV_INCLUDE_DIRS})
 target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC ${OpenCV_CFLAGS_OTHER})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${OpenCV_LIBS})
 
-# armadillo
-pkg_check_modules(ARMADILLO REQUIRED armadillo)
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${ARMADILLO_INCLUDE_DIRS})
-target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC
-    ARMA_DONT_USE_WRAPPER
-    ARMA_64BIT_WORD
-    ARMA_BLAS_LONG_LONG
-    ARMA_USE_HDF5
-    ARMA_NO_DEBUG
-)
-
-# mkl
-pkg_check_modules(MKL REQUIRED mkl-dynamic-ilp64-tbb)
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${MKL_INCLUDE_DIRS})
-target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC ${MKL_CFLAGS_OTHER})
-target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${MKL_LINK_LIBRARIES})
-
 # hdf5
-pkg_check_modules(HDF5 REQUIRED hdf5-cpp-serial)
+pkg_check_modules(HDF5 REQUIRED hdf5_cpp)
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${HDF5_INCLUDE_DIRS})
 target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC ${HDF5_CFLAGS_OTHER})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${HDF5_LINK_LIBRARIES})
@@ -93,3 +84,8 @@ pkg_check_modules(LIBTIFF REQUIRED libtiff-4)
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${LIBTIFF_INCLUDE_DIRS})
 target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC ${LIBTIFF_CFLAGS_OTHER})
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${LIBTIFF_LINK_LIBRARIES})
+
+# armadillo
+pkg_check_modules(ARMADILLO REQUIRED armadillo)
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${ARMADILLO_INCLUDE_DIRS})
+target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC ARMA_DONT_USE_WRAPPER ARMA_64BIT_WORD ARMA_BLAS_LONG_LONG ARMA_USE_HDF5 ARMA_NO_DEBUG)
