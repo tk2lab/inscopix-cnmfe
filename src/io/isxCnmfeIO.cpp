@@ -3,7 +3,7 @@
 #include "isxExportTiff.h"
 #include "isxUtilities.h"
 #include "isxLog.h"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include <fstream>
 #include <iomanip>
 

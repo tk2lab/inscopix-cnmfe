@@ -4,7 +4,7 @@
 #include "isxTiffMovie.h"
 #include "isxCnmfePatch.h"
 #include "isxLog.h"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include <tuple>
 
 namespace isx

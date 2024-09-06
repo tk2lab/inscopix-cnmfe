@@ -1,5 +1,5 @@
 #include "isx/cnmfe.h"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 #include <fstream>
 
 int main(int argc, char* argv[]) {

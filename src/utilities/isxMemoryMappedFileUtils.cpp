@@ -1,6 +1,7 @@
 #include "isxMemoryMappedFileUtils.h"
 
-#include "mio.hpp"
+#include "mio/mmap.hpp"
+#include "mio/shared_mmap.hpp"
 
 namespace isx
 {

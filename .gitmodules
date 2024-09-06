@@ -1,0 +1,3 @@
+[submodule "lib/ThreadPool"]
+	path = lib/ThreadPool
+	url = https://github.com/progschj/ThreadPool

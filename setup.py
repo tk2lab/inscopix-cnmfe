@@ -19,8 +19,8 @@ WIN_PLATFORM_TO_CMAKE = {
 }
 
 # compilers to use on Linux
-LINUX_C_COMPILER = '/usr/bin/gcc-4.8'
-LINUX_CXX_COMPILER = '/usr/bin/g++-4.8'
+LINUX_C_COMPILER = '/usr/bin/gcc'
+LINUX_CXX_COMPILER = '/usr/bin/g++'
 
 # A CMakeExtension needs a source directory instead of a file list.
 # The name must be the single output extension from the CMake build.

@@ -1,6 +1,6 @@
 #include "catch.hpp"
 #include "ThreadPool.h"
-#include "mio.hpp"
+#include "mio/shared_mmap.hpp"
 #include "H5Cpp.h"
 #include <armadillo>
 #include "opencv2/core.hpp"
