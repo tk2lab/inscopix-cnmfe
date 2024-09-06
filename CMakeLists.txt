@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(cnmfe)
 
 set(CMAKE_CXX_STANDARD 14)
-#set(CMAKE_CXX_FLAGS "-Wall -fPIC")
-set(CMAKE_CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS "-Wall -fPIC")
 
 # cnmfe static library
 file(GLOB SRC_FILES
